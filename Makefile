@@ -60,21 +60,9 @@ export ENV_CONTEXT
 # set the docker-compose FLAGS based on the DEPLOY_STAGE value
 FLAGS = -f ./docker-compose.yml
 
-ifeq (development,$(DEPLOY_STAGE))
-	FLAGS += -f ./docker-compose.override.yml
-else ifneq (,$(wildcard ./docker-compose.$(DEPLOY_STAGE).yml))
-  FLAGS += -f ./docker-compose.$(DEPLOY_STAGE).yml
-endif
-
-ifeq (1, $(shell docker ps -a | grep traefik | wc -l ) )
-	FLAGS += -f ./docker-compose.traefik.yml
-else
-	FLAGS += -f ./docker-compose.influx.yml
-endif
-
 # get the app name from the current directory
 export APP_NAME := $(notdir $(shell pwd))
-export APP_DOMAIN := $(or $(shell hostname -d), ilude.com)
+export APP_DOMAIN := $(or $(shell hostname), ilude.com)
 
 # use the rest as arguments as empty targets
 EMPTY_TARGETS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
@@ -112,14 +100,11 @@ test: build
 bash: build
 	docker-compose $(FLAGS) run --rm $(ATTACH_HOST) bash -l
 
-build: .env base/Gemfile.lock
+build: .env 
 	docker-compose $(FLAGS) build 
 
 .env:
 	echo "RAILS_EMAIL_OVERRIDE=${EMAIL}" > .env
-
-base/Gemfile.lock:
-	touch base/Gemfile.lock
 
 logs:
 	docker-compose  $(FLAGS) logs -f

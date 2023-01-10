@@ -46,7 +46,7 @@ def query_ai(prompt):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    #query_ai('Tell me about Mafen the pyromaniac norwegian  in Tromsø')
+    #query_ai(os.environ.get('QUERY_TEXT'))
     listen_for_wake_word()
     print('It works!')
 

@@ -7,6 +7,8 @@ services:
     image: ilude/${APP_NAME}-${DEPLOY_STAGE:-production}
     container_name: ${APP_NAME}
     restart: unless-stopped
+    devices:
+    - /dev/snd:/dev/snd
     env_file:
       - .env
     labels:

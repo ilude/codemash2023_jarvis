@@ -1,16 +1,26 @@
-# This is a sample Python script.
+import os
+import openai as ai
+#ai.organization ='org-cBExy83sUBuAY7BRECeNb9Q0'
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+ai.api_key = os.environ.get('OPENAI_API_KEY')
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def query_ai(prompt):
+    print('Prompt: ',prompt)
+    completions = ai.Completion.create(
+        engine = 'text-davinci-003',
+        prompt = prompt,
+        max_tokens = 256,
+        n =1,
+        stop = 'None',
+        temperature = 0.5
+    )
+    message = completions.choices[0].text
+    print('Message: ', message)
+    return message
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    query_ai('Tell me about Mafen the pyromaniac norwegian  in Tromsø')
+    print('It works!')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

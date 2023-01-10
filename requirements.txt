@@ -1,0 +1,5 @@
+openai
+SpeechRecognition
+PyAudio
+boto3
+pydub

@@ -19,10 +19,6 @@ RUN apk --no-cache add \
   echo "alias l='ls -lha --color=auto --group-directories-first'" >> /etc/profile.d/aliases.sh && \
   rm -rf /var/cache/apk/* 
 
-RUN apk --no-cache add \
-  build-base \
-  rm -rf /var/cache/apk/* 
-
 COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt

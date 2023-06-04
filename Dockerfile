@@ -25,4 +25,6 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
+ENV QUERY_TEXT='Tell me about Mafen the pyromaniac norwegian in Tromsø'
+
 CMD [ "python3", "main.py" ]

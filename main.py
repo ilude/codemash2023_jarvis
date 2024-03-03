@@ -3,9 +3,6 @@ import openai as ai
 import pyaudio
 import speech_recognition as sr
 
-
-#ai.organization ='org-cBExy83sUBuAY7BRECeNb9Q0'
-
 ai.api_key = os.environ.get('OPENAI_API_KEY')
 
 def listen_for_wake_word():
